@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Builder
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Property {
 
     @Id
@@ -60,10 +62,26 @@ public class Property {
     @Column(name = "Negotiable", nullable = false)
     private Boolean negotiable;
 
+    @Column(name = "Number_of_views")
+    private int noOfViews;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     //   @JsonIgnore
     @JoinColumn(name = "User_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
+    private List<Image> propertyImages;
+
+//    @JsonManagedReference
+//    @OneToOne(mappedBy = "property")
+//    private FavoriteProperty favoriteProperty;
+
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "property", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
+//    private List<FavoriteList> favoriteList;
+
+
 
 }

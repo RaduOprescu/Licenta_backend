@@ -58,6 +58,15 @@ public class User {
     // @JsonIgnore
     private List<Announcement> announcementList;
 
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
+//    private List<Property> wishList;
+
+
+//    @JsonManagedReference
+//    @OneToOne(mappedBy = "user")
+//    private FavoriteList favoriteList;
+
     public User(String username, String email, String name, Date birthdate, String address, String password) {
         this.username = username;
         this.name = name;

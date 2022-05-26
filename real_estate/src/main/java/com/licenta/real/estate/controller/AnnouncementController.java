@@ -24,7 +24,7 @@ public class AnnouncementController {
     public List<AnnouncementDTO> allAnnouncements(){
         return announcementService.findAll();
     }
-
+ 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
     public Announcement getAnnouncemet(@PathVariable long id){

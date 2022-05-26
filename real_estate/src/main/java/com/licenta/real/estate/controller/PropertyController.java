@@ -20,15 +20,18 @@ public class PropertyController {
     private final PropertyService propertyService;
 
     @GetMapping("/show")
-    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN') or hasRole('Buyer')")
+    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN') or hasRole('BUYER')")
     public List<PropertyDTO> allProprety(){
         return propertyService.findAll();
     }
 
     @GetMapping(value="/{id}")
-    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN') or hasRole('Buyer')")
+    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN') or hasRole('BUYER')")
     public Property getProperty(@PathVariable long id){
-        return propertyService.findById(id);
+        Property property = propertyService.findById(id);
+//        int noOfViews= property.getNoOfViews();
+//        property.setNoOfViews(++noOfViews);
+        return property;
     }
 
     @PostMapping

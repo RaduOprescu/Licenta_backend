@@ -19,10 +19,14 @@ public class PropertyService {
     private final PropertyMapper propertyMapper;
 
     public Property findById(long id){
-        return propertyRepository.findById(id) .orElseThrow(() -> new EntityNotFoundException("Property not found: " + id));
+        Property property = propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        property.setNoOfViews(property.getNoOfViews() + 1);
+        propertyRepository.save(property);
+        return property;
     }
 
     public List<PropertyDTO> findAll(){
+        List<PropertyDTO> properties = propertyRepository.findAll().stream().map(propertyMapper::toDto).collect(Collectors.toList());
         return propertyRepository.findAll()
                 .stream()
                 .map(propertyMapper::toDto)
@@ -30,6 +34,7 @@ public class PropertyService {
     }
 
     public PropertyDTO create(PropertyDTO propertyDTO){
+        propertyDTO.setNoOfViews(0);
         Property property = propertyMapper.fromDto(propertyDTO);
         property = propertyRepository.save(property);
         return propertyMapper.toDto(property);

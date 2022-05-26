@@ -1,13 +1,17 @@
 package com.licenta.real.estate.dtos;
 
+import com.licenta.real.estate.entities.Image;
 import com.licenta.real.estate.entities.User;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class PropertyDTO {
 
     private Long id;
@@ -25,5 +29,7 @@ public class PropertyDTO {
     private int year;
     private int price;
     private Boolean negotiable;
+    private int noOfViews;
     private User user;
+    private List<Image> propertyImages;
 }
