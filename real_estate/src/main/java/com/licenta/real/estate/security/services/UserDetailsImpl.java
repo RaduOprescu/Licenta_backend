@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,6 +32,10 @@ public class UserDetailsImpl implements UserDetails {
 
     private String address;
 
+    private String contact;
+
+    private Date birthdate;
+
     @JsonIgnore
     private String password;
 
@@ -48,6 +53,8 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getAddress(),
+                user.getContact(),
+                user.getBirthdate(),
                 user.getPassword(),
                 authorities);
     }

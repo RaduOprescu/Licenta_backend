@@ -40,8 +40,10 @@ public class User {
     private String address;
 
     @Column(name = "BirthDate", nullable = true)
-//    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthdate;
+
+    @Column(name = "Contact", nullable = false)
+    private String contact;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -67,12 +69,13 @@ public class User {
 //    @OneToOne(mappedBy = "user")
 //    private FavoriteList favoriteList;
 
-    public User(String username, String email, String name, Date birthdate, String address, String password) {
+    public User(String username, String email, String name, Date birthdate, String address, String contact, String password) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.birthdate = birthdate;
         this.address = address;
+        this.contact = contact;
         this.password = password;
     }
 

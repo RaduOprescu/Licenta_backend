@@ -19,6 +19,7 @@ public class PropertyDTO {
     private String type;
     private String state;
     private String city;
+    private String street;
     private int size;
     private int noOfRooms;
     private int noOfBaths;

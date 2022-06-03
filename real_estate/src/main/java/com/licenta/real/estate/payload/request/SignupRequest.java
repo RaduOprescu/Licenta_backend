@@ -35,6 +35,8 @@ public class SignupRequest {
 //    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthdate;
 
+    private String contact;
+
     private Set<String> role;
 
     @NotBlank

@@ -48,6 +48,7 @@ public class UserService {
         updateUser.setAddress(userDTO.getAddress());
         updateUser.setBirthdate(userDTO.getBirthdate());
         updateUser.setUsername(userDTO.getUsername());
+        updateUser.setContact(userDTO.getContact());
         updateUser = userRepository.save(updateUser);
         return userMapper.toDto(updateUser);
     }

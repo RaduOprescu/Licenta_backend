@@ -24,8 +24,7 @@ public class UserDTO {
     private String email;
     private String password;
     private String address;
-
-//    @JsonFormat(pattern="yyyy-MM-dd")
+    private String contact;
     private Date birthdate;
 
     private Set<Role> roles;

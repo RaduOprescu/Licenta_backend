@@ -50,6 +50,7 @@ public class PropertyService {
         updateProperty.setType(propertyDTO.getType());
         updateProperty.setState(propertyDTO.getState());
         updateProperty.setCity(propertyDTO.getCity());
+        updateProperty.setStreet(propertyDTO.getStreet());
         updateProperty.setSize(propertyDTO.getSize());
         updateProperty.setNoOfRooms(propertyDTO.getNoOfRooms());
         updateProperty.setNoOfBaths(propertyDTO.getNoOfBaths());

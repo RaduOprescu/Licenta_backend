@@ -32,6 +32,9 @@ public class Property {
     @Column(name = "City", nullable = false)
     private String city;
 
+    @Column(name = "Street", nullable = false)
+    private String street;
+
     @Column(name = "Size", nullable = false)
     private int size;
 
