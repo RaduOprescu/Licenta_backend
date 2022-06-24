@@ -36,7 +36,7 @@ public class PropertyController {
 
     @PostMapping
     @PreAuthorize("hasRole('SELLER')")
-    public PropertyDTO create(@RequestBody PropertyDTO propertyDTO){
+    public PropertyDTO create(@ModelAttribute PropertyDTO propertyDTO){
         return propertyService.create(propertyDTO);
     }
 
