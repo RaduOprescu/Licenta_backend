@@ -4,6 +4,7 @@ import com.licenta.real.estate.dtos.PropertyDTO;
 import com.licenta.real.estate.entities.Property;
 import com.licenta.real.estate.mapper.PropertyMapper;
 import com.licenta.real.estate.repository.PropertyRepository;
+import com.licenta.real.estate.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 public class PropertyService {
 
     private final PropertyRepository propertyRepository;
+
+    private final ImageRepository imageRepository;
+
     private final PropertyMapper propertyMapper;
 
     public Property findById(long id){
@@ -37,6 +41,12 @@ public class PropertyService {
         propertyDTO.setNoOfViews(0);
         Property property = propertyMapper.fromDto(propertyDTO);
         property = propertyRepository.save(property);
+        Property finalProperty = property;
+        property.getPropertyImages().stream().map(image -> {
+            image.setProperty(finalProperty);
+            return image;
+        }).forEach(imageRepository::save);
+
         return propertyMapper.toDto(property);
     }
 
@@ -51,6 +61,7 @@ public class PropertyService {
         updateProperty.setState(propertyDTO.getState());
         updateProperty.setCity(propertyDTO.getCity());
         updateProperty.setStreet(propertyDTO.getStreet());
+        updateProperty.setPrice(propertyDTO.getPrice());
         updateProperty.setSize(propertyDTO.getSize());
         updateProperty.setNoOfRooms(propertyDTO.getNoOfRooms());
         updateProperty.setNoOfBaths(propertyDTO.getNoOfBaths());
