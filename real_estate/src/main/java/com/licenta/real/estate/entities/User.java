@@ -65,9 +65,9 @@ public class User {
 //    private List<Property> wishList;
 
 
-//    @JsonManagedReference
-//    @OneToOne(mappedBy = "user")
-//    private FavoriteList favoriteList;
+    @JsonManagedReference
+    @OneToOne(mappedBy = "user")
+    private FavoriteList favoriteList;
 
     public User(String username, String email, String name, Date birthdate, String address, String contact, String password) {
         this.username = username;

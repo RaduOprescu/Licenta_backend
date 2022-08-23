@@ -2,6 +2,7 @@ package com.licenta.real.estate.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -77,9 +78,9 @@ public class Property {
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Image> propertyImages;
 
-//    @JsonManagedReference
-//    @OneToOne(mappedBy = "property")
-//    private FavoriteProperty favoriteProperty;
+    @JsonManagedReference
+    @OneToOne(mappedBy = "property")
+    private FavoriteProperty favoriteProperty;
 
 //    @JsonManagedReference
 //    @OneToMany(mappedBy = "property", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)

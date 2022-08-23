@@ -2,7 +2,7 @@ package com.licenta.real.estate.dtos;
 
 
 import com.licenta.real.estate.entities.Announcement;
-//import com.licenta.real.estate.entities.FavoriteList;
+import com.licenta.real.estate.entities.FavoriteList;
 import com.licenta.real.estate.entities.Property;
 import com.licenta.real.estate.entities.Role;
 import lombok.*;
@@ -31,6 +31,6 @@ public class UserDTO {
     private List<Property> propertyList;
     private List<Announcement> announcementList;
 
-//    private FavoriteList favoriteList;
+    private FavoriteList favoriteList;
 
 }
