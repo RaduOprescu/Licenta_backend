@@ -18,7 +18,7 @@ import java.util.List;
 public interface PropertyMapper {
 
     @Mapping(source = "user", target = "userId", qualifiedByName = "userToUserId")
-    //@Mapping(source = "propertyImages", target = "multipartPropertyImages", qualifiedByName = "fileToMultipart")
+    @Mapping(source = "propertyImages", target = "images", qualifiedByName = "fileToBytesArray")
     PropertyDTO toDto(Property property);
 
     @Mapping(source = "userId", target = "user", qualifiedByName = "userIdToUser")
@@ -50,10 +50,10 @@ public interface PropertyMapper {
         }).collect(java.util.stream.Collectors.toList());
     }
 
-    @Named("fileToMultipart")
-    default List<MultipartFile> fileToMultipart(List<Image> propertyImages) {
+    @Named("fileToBytesArray")
+    default List<byte[]> fileToBytesArray(List<Image> propertyImages) {
         return propertyImages.stream().map(
-                propertyImage -> new CustomMultipartFile(propertyImage.getImage(), propertyImage.getImageName()))
+                propertyImage -> propertyImage.getImage())
                 .collect(java.util.stream.Collectors.toList());
     }
 }

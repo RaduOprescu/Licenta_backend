@@ -32,4 +32,5 @@ public class PropertyDTO {
     private int noOfViews;
     private Long userId;
     private List<MultipartFile> multipartPropertyImages;
+    private List<byte[]> images;
 }
