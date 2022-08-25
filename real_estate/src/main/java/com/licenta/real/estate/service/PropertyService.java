@@ -22,11 +22,12 @@ public class PropertyService {
 
     private final PropertyMapper propertyMapper;
 
-    public Property findById(long id){
+    public PropertyDTO findById(long id){
         Property property = propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found"));
         property.setNoOfViews(property.getNoOfViews() + 1);
         propertyRepository.save(property);
-        return property;
+        PropertyDTO propertyDTO = propertyMapper.toDto(property);
+        return propertyDTO;
     }
 
     public List<PropertyDTO> findAll(){
@@ -55,7 +56,8 @@ public class PropertyService {
     }
 
     public PropertyDTO edit(Long id, PropertyDTO propertyDTO){
-        Property updateProperty = findById(id);
+        PropertyDTO updatePropertyDTO = findById(id);
+        Property updateProperty = propertyMapper.fromDto(updatePropertyDTO);
         updateProperty.setName(propertyDTO.getName());
         updateProperty.setType(propertyDTO.getType());
         updateProperty.setState(propertyDTO.getState());
@@ -70,6 +72,7 @@ public class PropertyService {
         updateProperty.setSizeOfYard(propertyDTO.getSizeOfYard());
         updateProperty.setStatus(propertyDTO.getStatus());
         updateProperty.setYear(propertyDTO.getYear());
+
         updateProperty = propertyRepository.save(updateProperty);
         return propertyMapper.toDto(updateProperty);
     }

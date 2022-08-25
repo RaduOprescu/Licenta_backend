@@ -2,7 +2,6 @@ package com.licenta.real.estate.controller;
 
 
 import com.licenta.real.estate.dtos.PropertyDTO;
-import com.licenta.real.estate.entities.Property;
 import com.licenta.real.estate.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,11 +26,11 @@ public class PropertyController {
 
     @GetMapping(value="/{id}")
     @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN') or hasRole('BUYER')")
-    public Property getProperty(@PathVariable long id){
-        Property property = propertyService.findById(id);
+    public PropertyDTO getProperty(@PathVariable long id){
+        PropertyDTO propertyDTO = propertyService.findById(id);
 //        int noOfViews= property.getNoOfViews();
 //        property.setNoOfViews(++noOfViews);
-        return property;
+        return propertyDTO;
     }
 
     @PostMapping

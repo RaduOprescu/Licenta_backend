@@ -2,10 +2,12 @@ package com.licenta.real.estate.service;
 
 
 import com.licenta.real.estate.dtos.FavoriteListDTO;
+import com.licenta.real.estate.dtos.PropertyDTO;
 import com.licenta.real.estate.entities.FavoriteList;
 import com.licenta.real.estate.entities.FavoriteProperty;
 import com.licenta.real.estate.entities.Property;
 import com.licenta.real.estate.mapper.FavoriteListMapper;
+import com.licenta.real.estate.mapper.PropertyMapper;
 import com.licenta.real.estate.repository.FavoriteListRepository;
 import com.licenta.real.estate.repository.FavoritePropertyRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,12 +27,15 @@ public class FavoriteListService {
     private final FavoritePropertyRepository favoritePropertyRepository;
     private final PropertyService propertyService;
 
+    private final PropertyMapper propertyMapper;
+
 
     public FavoriteList addToFavoriteListFirstTime(Long id) {
         FavoriteList favoriteList = new FavoriteList();
         FavoriteProperty favoriteProperty = new FavoriteProperty();
 
-        Property property = propertyService.findById(id);
+        PropertyDTO propertyDTO = propertyService.findById(id);
+        Property property = propertyMapper.fromDto(propertyDTO);
 
 //        property = propertyService.findById(id);
         favoriteProperty.setProperty(property);
@@ -49,7 +54,9 @@ public class FavoriteListService {
     public FavoriteList addToExistingFavoriteList(Long idList, Long idProperty) {
 
         FavoriteList favoriteList = findById(idList);
-        Property property = propertyService.findById(idProperty);
+
+        PropertyDTO propertyDTO = propertyService.findById(idProperty);
+        Property property = propertyMapper.fromDto(propertyDTO);
 
         Boolean propertyDoesExistInTheCart = false;
         if (favoriteList != null) {
@@ -77,7 +84,8 @@ public class FavoriteListService {
     public FavoriteList removeFavoriteProperty(Long idList, Long idProperty) {
 
         FavoriteList favoriteList = findById(idList);
-        Property property = propertyService.findById(idProperty);
+        PropertyDTO propertyDTO = propertyService.findById(idProperty);
+        Property property = propertyMapper.fromDto(propertyDTO);
 
         List<FavoriteProperty> favoriteProperties = favoriteList.getFavoriteProperties();
         FavoriteProperty deleteProperty = null;
