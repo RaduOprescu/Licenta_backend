@@ -12,6 +12,7 @@ import org.mapstruct.Named;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -37,17 +38,21 @@ public interface PropertyMapper {
 
     @Named("multipartToFile")
     default List<Image> multipartToFile(List<MultipartFile> multipartPropertyImages) {
-        return multipartPropertyImages.stream().map(multipartPropertyImage -> {
-            Image image = new Image();
-            try {
-                image.setImage(multipartPropertyImage.getBytes());
-                image.setImageName(multipartPropertyImage.getOriginalFilename());
-                image.setImageType(multipartPropertyImage.getContentType());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return image;
-        }).collect(java.util.stream.Collectors.toList());
+        if(multipartPropertyImages != null) {
+            return multipartPropertyImages.stream().map(multipartPropertyImage -> {
+                Image image = new Image();
+                try {
+                    image.setImage(multipartPropertyImage.getBytes());
+                    image.setImageName(multipartPropertyImage.getOriginalFilename());
+                    image.setImageType(multipartPropertyImage.getContentType());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                return image;
+            }).collect(java.util.stream.Collectors.toList());
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
 
     @Named("fileToBytesArray")

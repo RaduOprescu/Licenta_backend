@@ -31,6 +31,7 @@ public class PropertyDTO {
     private Boolean negotiable;
     private int noOfViews;
     private Long userId;
+    private Boolean deleted;
     private List<MultipartFile> multipartPropertyImages;
     private List<byte[]> images;
 }

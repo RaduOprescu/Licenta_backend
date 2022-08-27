@@ -69,6 +69,9 @@ public class Property {
     @Column(name = "Number_of_views")
     private int noOfViews;
 
+    @Column(name = "Deleted")
+    private Boolean deleted;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     //   @JsonIgnore

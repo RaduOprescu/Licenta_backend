@@ -31,9 +31,8 @@ public class PropertyService {
     }
 
     public List<PropertyDTO> findAll(){
-        List<PropertyDTO> properties = propertyRepository.findAll().stream().map(propertyMapper::toDto).collect(Collectors.toList());
         return propertyRepository.findAll()
-                .stream()
+                .stream().filter(property -> !Boolean.TRUE.equals(property.getDeleted()))
                 .map(propertyMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -52,7 +51,10 @@ public class PropertyService {
     }
 
     public void delete(Long id){
-        propertyRepository.deleteById(id);
+        //propertyRepository.deleteById(id);
+        PropertyDTO property = findById(id);
+        property.setDeleted(true);
+        propertyRepository.save(propertyMapper.fromDto(property));
     }
 
     public PropertyDTO edit(Long id, PropertyDTO propertyDTO){
