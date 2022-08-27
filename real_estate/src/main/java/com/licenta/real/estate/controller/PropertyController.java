@@ -2,7 +2,9 @@ package com.licenta.real.estate.controller;
 
 
 import com.licenta.real.estate.dtos.PropertyDTO;
+import com.licenta.real.estate.dtos.UserDTO;
 import com.licenta.real.estate.service.PropertyService;
+import com.licenta.real.estate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ import java.util.List;
 public class PropertyController {
 
     private final PropertyService propertyService;
+
+    private final UserService userService;
 
     @GetMapping("/show")
     @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN') or hasRole('BUYER')")
@@ -49,6 +53,12 @@ public class PropertyController {
 //    @PreAuthorize("hasRole('SELLER')")
     public void delete(@PathVariable long id){
         propertyService.delete(id);
+    }
+    @GetMapping("/owner/{id}")
+    @PreAuthorize("hasRole('SELLER') or hasRole('BUYER')")
+    public UserDTO getOwner(@PathVariable long id){
+        UserDTO userDTO = userService.findDTOById(id);
+        return userDTO;
     }
 
 }

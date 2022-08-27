@@ -1,6 +1,5 @@
 package com.licenta.real.estate.dtos;
 
-import com.licenta.real.estate.entities.User;
 import lombok.*;
 
 @Getter
@@ -23,7 +22,7 @@ public class AnnouncementDTO {
     private int sizeOfYard;
     private String status;
     private int year;
-    private User user;
+    private Long userId;
 
 
 }

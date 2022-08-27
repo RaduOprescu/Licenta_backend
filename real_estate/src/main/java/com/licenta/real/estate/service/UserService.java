@@ -23,6 +23,12 @@ public class UserService {
         return userRepository.findById(id) .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
 
+    public UserDTO findDTOById(long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        UserDTO userDTO = userMapper.toDto(user);
+        return userDTO;
+    }
+
     public List<UserDTO> findAll(){
         return userRepository.findAll()
                 .stream()

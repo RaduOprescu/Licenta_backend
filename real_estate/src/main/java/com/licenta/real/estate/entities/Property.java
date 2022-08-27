@@ -75,6 +75,7 @@ public class Property {
     @JoinColumn(name = "User_id", nullable = false)
     private User user;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Image> propertyImages;
 

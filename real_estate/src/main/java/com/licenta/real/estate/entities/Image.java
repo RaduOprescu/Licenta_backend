@@ -1,5 +1,6 @@
 package com.licenta.real.estate.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Image {
     @Basic
     @Column(name = "image_type")
     private String imageType;
-
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Property_id")
     private Property property;
