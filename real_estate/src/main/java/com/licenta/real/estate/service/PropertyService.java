@@ -42,10 +42,12 @@ public class PropertyService {
         Property property = propertyMapper.fromDto(propertyDTO);
         property = propertyRepository.save(property);
         Property finalProperty = property;
-        property.getPropertyImages().stream().map(image -> {
-            image.setProperty(finalProperty);
-            return image;
-        }).forEach(imageRepository::save);
+        if(property.getPropertyImages() != null) {
+            property.getPropertyImages().stream().map(image -> {
+                image.setProperty(finalProperty);
+                return image;
+            }).forEach(imageRepository::save);
+        }
 
         return propertyMapper.toDto(property);
     }
