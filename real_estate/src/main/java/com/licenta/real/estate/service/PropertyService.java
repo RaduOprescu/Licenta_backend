@@ -77,6 +77,8 @@ public class PropertyService {
         updateProperty.setStatus(propertyDTO.getStatus());
         updateProperty.setYear(propertyDTO.getYear());
 
+        updateProperty.setPropertyImages(imageRepository.findImageByProperty(updateProperty));
+
         updateProperty = propertyRepository.save(updateProperty);
         return propertyMapper.toDto(updateProperty);
     }

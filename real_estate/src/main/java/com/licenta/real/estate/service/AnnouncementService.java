@@ -19,8 +19,11 @@ public class AnnouncementService {
     private final AnnouncementRepository announcementRepository;
     private final AnnouncementMapper announcementMapper;
 
-    public Announcement findById(long id){
-        return announcementRepository.findById(id) .orElseThrow(() -> new EntityNotFoundException("Property not found: " + id));
+    public AnnouncementDTO findById(long id){
+        Announcement announcement = announcementRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        AnnouncementDTO announcementDTO = announcementMapper.toDto(announcement);
+        return announcementDTO;
+//        return announcementRepository.findById(id) .orElseThrow(() -> new EntityNotFoundException("Property not found: " + id));
     }
 
     public List<AnnouncementDTO> findAll(){
@@ -41,7 +44,8 @@ public class AnnouncementService {
     }
 
     public AnnouncementDTO edit(Long id, AnnouncementDTO announcementDTO) {
-        Announcement updateAnnouncement = findById(id);
+        AnnouncementDTO updateAnnouncementDTO = findById(id);
+        Announcement updateAnnouncement = announcementMapper.fromDto(updateAnnouncementDTO);
         updateAnnouncement.setType(announcementDTO.getType());
         updateAnnouncement.setState(announcementDTO.getState());
         updateAnnouncement.setCity(announcementDTO.getCity());

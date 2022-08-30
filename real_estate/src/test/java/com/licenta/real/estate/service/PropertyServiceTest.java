@@ -45,6 +45,7 @@ class PropertyServiceTest {
         property.setCity(propertyDTO.getCity());
         property.setPrice(propertyDTO.getPrice());
     }
+
     @Test
     void createProperty_WithValidDTO_ShouldSucceed() {
         when(propertyRepository.save(property)).thenReturn(property);
