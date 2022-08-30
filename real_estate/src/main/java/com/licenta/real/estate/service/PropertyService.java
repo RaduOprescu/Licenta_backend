@@ -5,6 +5,7 @@ import com.licenta.real.estate.entities.Property;
 import com.licenta.real.estate.mapper.PropertyMapper;
 import com.licenta.real.estate.repository.PropertyRepository;
 import com.licenta.real.estate.repository.ImageRepository;
+import com.licenta.real.estate.dtos.AnnouncementDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class PropertyService {
     private final ImageRepository imageRepository;
 
     private final PropertyMapper propertyMapper;
+
+    private final AnnouncementService announcementService;
 
     public PropertyDTO findById(long id){
         Property property = propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found"));
@@ -83,5 +86,28 @@ public class PropertyService {
         return propertyMapper.toDto(updateProperty);
     }
 
+    public List<PropertyDTO> matchProperties(Long id){
+        AnnouncementDTO announcementDTO = announcementService.findById(id);
+//        List<PropertyDTO> propertyDTOList = findAll();
+//
+//        for(PropertyDTO propertyDTO : propertyDTOList){
+//            if(announcementDTO.getMaxPrice() < propertyDTO.getPrice()){
+//
+//            }
+//        }
+
+        return propertyRepository.findAll()
+                .stream().filter(property ->
+                        property.getPrice() < announcementDTO.getMaxPrice() &&
+                                !Boolean.TRUE.equals(property.getDeleted()) &&
+                                property.getNoOfRooms() >= announcementDTO.getNoOfRooms() &&
+                                property.getNoOfBaths() >= announcementDTO.getNoOfBaths()
+                )
+                .map(propertyMapper::toDto)
+                .collect(Collectors.toList());
+
+
+//        return propertyDTOList;
+    }
 
 }

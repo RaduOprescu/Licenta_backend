@@ -61,4 +61,10 @@ public class PropertyController {
         return userDTO;
     }
 
+    @GetMapping("/match/{id}")
+    @PreAuthorize("hasRole('SELLER') or hasRole('BUYER')")
+    public List<PropertyDTO> matchProperties(@PathVariable long id){
+        return propertyService.matchProperties(id);
+    }
+
 }
