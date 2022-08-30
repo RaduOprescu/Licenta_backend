@@ -88,13 +88,6 @@ public class PropertyService {
 
     public List<PropertyDTO> matchProperties(Long id){
         AnnouncementDTO announcementDTO = announcementService.findById(id);
-//        List<PropertyDTO> propertyDTOList = findAll();
-//
-//        for(PropertyDTO propertyDTO : propertyDTOList){
-//            if(announcementDTO.getMaxPrice() < propertyDTO.getPrice()){
-//
-//            }
-//        }
 
         return propertyRepository.findAll()
                 .stream().filter(property ->
@@ -106,8 +99,6 @@ public class PropertyService {
                 .map(propertyMapper::toDto)
                 .collect(Collectors.toList());
 
-
-//        return propertyDTOList;
     }
 
 }
